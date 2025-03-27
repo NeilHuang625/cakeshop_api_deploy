@@ -2,7 +2,6 @@ using cakeshop_api.Hubs;
 using cakeshop_api.Services;
 using cakeshop_api.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 using System.Text;
