@@ -13,20 +13,8 @@ var mongoConnectionString = Environment.GetEnvironmentVariable("MongoDB__Connect
 var mongoDatabaseName = Environment.GetEnvironmentVariable("MongoDB__DatabaseName") 
                         ?? builder.Configuration["MongoDB:DatabaseName"];
 
-Console.WriteLine($"CCCCCCCCCCCConection: {mongoConnectionString}");
-if (string.IsNullOrEmpty(mongoConnectionString))
-{
-    throw new ArgumentNullException(nameof(mongoConnectionString), "Connection string is missing!");
-}
-
-if (string.IsNullOrEmpty(mongoDatabaseName))
-{
-    throw new ArgumentNullException(nameof(mongoDatabaseName), "Database name is missing!");
-}
-
 var mongoClient = new MongoClient(mongoConnectionString);
 var database = mongoClient.GetDatabase(mongoDatabaseName);
-
 
 builder.Services.AddSingleton(database);
 builder.Services.AddSignalR();
@@ -70,9 +58,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("user", policy => policy.RequireRole("user"));
 });
 
-var app = builder.Build();
-
-app.Logger.LogInformation("Application is starting...");    
+var app = builder.Build(); 
 
 app.UseCors("AllowSpecificOrigin");
 
