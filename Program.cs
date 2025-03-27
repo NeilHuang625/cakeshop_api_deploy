@@ -13,6 +13,11 @@ var mongoConnectionString = Environment.GetEnvironmentVariable("MongoDB__Connect
 var mongoDatabaseName = Environment.GetEnvironmentVariable("MongoDB__DatabaseName") 
                         ?? builder.Configuration["MongoDB:DatabaseName"];
 
+if (string.IsNullOrEmpty(mongoConnectionString))
+{
+    throw new ArgumentNullException(nameof(mongoConnectionString), "Connection string is missing!");
+}
+
 if (string.IsNullOrEmpty(mongoDatabaseName))
 {
     throw new ArgumentNullException(nameof(mongoDatabaseName), "Database name is missing!");
