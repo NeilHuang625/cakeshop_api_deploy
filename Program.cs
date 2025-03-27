@@ -13,7 +13,7 @@ var mongoConnectionString = Environment.GetEnvironmentVariable("MongoDB__Connect
 var mongoDatabaseName = Environment.GetEnvironmentVariable("MongoDB__DatabaseName") 
                         ?? builder.Configuration["MongoDB:DatabaseName"];
 
-Console.WriteLine($"MongoDB Connection String: {mongoConnectionString}");
+Console.WriteLine($"CCCCCCCCCCCConection: {mongoConnectionString}");
 if (string.IsNullOrEmpty(mongoConnectionString))
 {
     throw new ArgumentNullException(nameof(mongoConnectionString), "Connection string is missing!");
