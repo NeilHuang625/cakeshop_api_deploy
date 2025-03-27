@@ -8,10 +8,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var mongoConnectionString = Environment.GetEnvironmentVariable("MongoDB__ConnectionString") 
-                            ?? builder.Configuration["MongoDB:ConnectionString"];
-var mongoDatabaseName = Environment.GetEnvironmentVariable("MongoDB__DatabaseName") 
-                        ?? builder.Configuration["MongoDB:DatabaseName"];
+var mongoConnectionString = Environment.GetEnvironmentVariable("MongoDB__ConnectionString");
+var mongoDatabaseName = Environment.GetEnvironmentVariable("MongoDB__DatabaseName");
 
 var mongoClient = new MongoClient(mongoConnectionString);
 var database = mongoClient.GetDatabase(mongoDatabaseName);
