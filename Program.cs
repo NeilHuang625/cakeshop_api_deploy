@@ -12,6 +12,17 @@ var mongoSettings = builder.Configuration.GetSection("MongoDB");
 var mongoClient = new MongoClient(mongoSettings["ConnectionString"]);
 var database = mongoClient.GetDatabase(mongoSettings["DatabaseName"]);
 
+var connectionString = mongoSettings["ConnectionString"];
+var databaseName = mongoSettings["DatabaseName"];
+
+Console.WriteLine($"MongoDB ConnectionString: {connectionString}");
+Console.WriteLine($"MongoDB DatabaseName: {databaseName}");
+
+if (string.IsNullOrEmpty(databaseName))
+{
+    throw new ArgumentNullException(nameof(databaseName), "Database name is missing!");
+}
+
 builder.Services.AddSingleton(database);
 builder.Services.AddSignalR();
 
@@ -27,7 +38,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin", builder => builder.WithOrigins("https://main.d3f9q6d13mdf99.amplifyapp.com/").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+    options.AddPolicy("AllowSpecificOrigin", builder => builder.WithOrigins("https://main.d3f9q6d13mdf99.amplifyapp.com").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 });
 
 builder.Services.AddAuthentication(options =>
