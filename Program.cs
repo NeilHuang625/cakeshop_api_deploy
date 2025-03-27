@@ -27,7 +27,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin", builder => builder.WithOrigins("http://localhost:5173").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+    options.AddPolicy("AllowSpecificOrigin", builder => builder.WithOrigins("https://main.d3f9q6d13mdf99.amplifyapp.com/").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 });
 
 builder.Services.AddAuthentication(options =>
