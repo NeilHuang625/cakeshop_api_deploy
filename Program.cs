@@ -8,20 +8,19 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var mongoSettings = builder.Configuration.GetSection("MongoDB");
-var mongoClient = new MongoClient(mongoSettings["ConnectionString"]);
-var database = mongoClient.GetDatabase(mongoSettings["DatabaseName"]);
+var mongoConnectionString = Environment.GetEnvironmentVariable("MongoDB__ConnectionString") 
+                            ?? builder.Configuration["MongoDB:ConnectionString"];
+var mongoDatabaseName = Environment.GetEnvironmentVariable("MongoDB__DatabaseName") 
+                        ?? builder.Configuration["MongoDB:DatabaseName"];
 
-var connectionString = mongoSettings["ConnectionString"];
-var databaseName = mongoSettings["DatabaseName"];
-
-Console.WriteLine($"MongoDB ConnectionString: {connectionString}");
-Console.WriteLine($"MongoDB DatabaseName: {databaseName}");
-
-if (string.IsNullOrEmpty(databaseName))
+if (string.IsNullOrEmpty(mongoDatabaseName))
 {
-    throw new ArgumentNullException(nameof(databaseName), "Database name is missing!");
+    throw new ArgumentNullException(nameof(mongoDatabaseName), "Database name is missing!");
 }
+
+var mongoClient = new MongoClient(mongoConnectionString);
+var database = mongoClient.GetDatabase(mongoDatabaseName);
+
 
 builder.Services.AddSingleton(database);
 builder.Services.AddSignalR();
