@@ -2,6 +2,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace cakeshop_api.Models
 {
+    [BsonIgnoreExtraElements]
     public class Order
     {
         [BsonId]
