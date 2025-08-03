@@ -15,6 +15,12 @@ namespace cakeshop_api.Models
         [BsonElement("OrderItems")]
         public required List<OrderItem> OrderItems { get; set; }
 
+        [BsonElement("deliveryInfo")]
+        public required DeliveryInfo DeliveryInfo { get; set; }
+
+        [BsonElement("totalAmount")]
+        public decimal TotalAmount { get; set; }
+
         [BsonElement("createdDate")]
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
@@ -47,6 +53,30 @@ namespace cakeshop_api.Models
 
         [BsonElement("optionId")]
         public required string OptionId { get; set; }
+    }
+
+    public class DeliveryInfo
+    {
+        [BsonElement("deliveryDate")]
+        public required string DeliveryDate { get; set; }
+
+        [BsonElement("deliveryTime")]
+        public required string DeliveryTime { get; set; }
+
+        [BsonElement("address")]
+        public required string Address { get; set; }
+
+        [BsonElement("recipientName")]
+        public required string RecipientName { get; set; }
+
+        [BsonElement("recipientPhone")]
+        public required string RecipientPhone { get; set; }
+
+        [BsonElement("message")]
+        public string? Message { get; set; }
+
+        [BsonElement("paymentMethod")]
+        public required string PaymentMethod { get; set; }
     }
 
     public class Status
