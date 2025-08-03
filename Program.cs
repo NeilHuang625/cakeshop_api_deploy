@@ -8,8 +8,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var mongoConnectionString = Environment.GetEnvironmentVariable("MongoDB__ConnectionString");
-var mongoDatabaseName = Environment.GetEnvironmentVariable("MongoDB__DatabaseName");
+var mongoConnectionString = builder.Configuration["MongoDB:ConnectionString"];
+var mongoDatabaseName = builder.Configuration["MongoDB:DatabaseName"];
 
 var mongoClient = new MongoClient(mongoConnectionString);
 var database = mongoClient.GetDatabase(mongoDatabaseName);
@@ -56,7 +56,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("user", policy => policy.RequireRole("user"));
 });
 
-var app = builder.Build(); 
+var app = builder.Build();
 
 app.UseCors("AllowSpecificOrigin");
 
