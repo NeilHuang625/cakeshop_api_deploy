@@ -29,7 +29,14 @@ builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin", builder => builder.WithOrigins("https://brave-hill-01f4fa500.6.azurestaticapps.net").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+    var allowedOrigins = builder.Configuration["AllowedCorsOrigins"]?.Split(',') ?? [];
+    options.AddPolicy("AllowSpecificOrigin", policy =>
+    {
+        policy.WithOrigins(allowedOrigins)
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
 });
 
 builder.Services.AddAuthentication(options =>
