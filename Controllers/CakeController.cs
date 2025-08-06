@@ -1,4 +1,3 @@
-
 using Newtonsoft.Json;
 using cakeshop_api.Models;
 using cakeshop_api.Services;
@@ -149,6 +148,24 @@ namespace cakeshop_api.Controllers
             var updatedCake = await _cakeService.UpdateCake(id, cake);
 
             return Ok(updatedCake);
+        }
+
+        // PATCH /api/cake/{id}/availability
+        [HttpPatch("{id}/availability")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> UpdateCakeAvailability(string id, [FromBody] UpdateCakeAvailabilityRequest request)
+        {
+            var existingCake = await _cakeService.GetCakeById(id);
+
+            if (existingCake is null)
+            {
+                return NotFound("Cake not found.");
+            }
+
+            existingCake.IsAvailable = request.Available;
+            var updatedCake = await _cakeService.UpdateCake(id, existingCake);
+
+            return Ok(new { success = true, cake = updatedCake });
         }
 
         // DELETE /api/cake/{id}
